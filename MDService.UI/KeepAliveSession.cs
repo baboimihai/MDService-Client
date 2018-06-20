@@ -12,17 +12,18 @@ namespace MDService.UI
 {
     public class KeepAliveSession : IJob
     {
-        private string websiteLink = "http://www.mihaidm.ddns.net/";//"http://www.dm.com/";
+        private string websiteLink = /*"http://mihaidm.ddns.net";//*/"http://www.dm.com/";
         public void Execute()
         {
             if (string.IsNullOrEmpty(SessionIdentity.Token))
             {
                 InstallNewService();
-            }else
+            }
+            else
             {
 
-                var resutl = CallServer.POSTJson(websiteLink+"Api/DynamicMicros/KeepAlive",SessionIdentity.Token);
-                if(resutl.Replace("\\", "").Replace("\"", "") != "Ok")
+                var resutl = CallServer.POSTJson(websiteLink + "/Api/DynamicMicros/KeepAlive", SessionIdentity.Token);
+                if (resutl.Replace("\\", "").Replace("\"", "") != "Ok")
                 {
                     MDService.UI.Program.serviceTask.Restart();
                 }
@@ -30,10 +31,12 @@ namespace MDService.UI
         }
         public void InstallNewService()
         {
-            var url = websiteLink+"/Api/DynamicMicros/StartSession";
+            //string pubIp = new System.Net.WebClient().DownloadString("https://api.ipify.org");
+            string pubIp = "localhost";
+            var url = websiteLink + "/Api/DynamicMicros/StartSession";
             string requestInfo = SessionIdentity.ConnectionSecurity.GenerateRequest();
             var clientToken = Guid.NewGuid().ToString().Substring(0, 10);
-            var jsonContent = requestInfo + " " + SessionIdentity.Port + " " + clientToken;
+            var jsonContent = requestInfo + " " + SessionIdentity.Port + " " + clientToken + " " + pubIp;
             try
             {
 

@@ -113,7 +113,7 @@ namespace WebApiClasses.Controllers
                 using (Ionic.Zip.ZipFile zip1 = Ionic.Zip.ZipFile.Read("install.zip"))
                 {
                     zip1.ExtractAll("process",
-                    Ionic.Zip.ExtractExistingFileAction.DoNotOverwrite);
+                    Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
                 }
                 assembly = Assembly.LoadFrom("process/" + input.Namespace + ".dll");
                 type = assembly.GetType(input.Namespace + "." + input.ClassName);

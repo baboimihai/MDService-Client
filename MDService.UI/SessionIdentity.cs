@@ -16,7 +16,7 @@ namespace MDService.UI
             {
                 ticks = rnd.Next(8000, 9000);
             }
-            Port = ticks.ToString();
+            Port = ticks.ToString();//
         }
         public static string ClassName { get; set; }
         public static string Namespace { get; set; }

@@ -26,7 +26,8 @@ namespace MDService
         }
         public void OnStart(string[] args)
         {
-            var config = new HttpSelfHostConfiguration("http://localhost:"+ SessionIdentity.Port +"/");
+            //string pubIp = new System.Net.WebClient().DownloadString("https://api.ipify.org");
+            var config = new HttpSelfHostConfiguration("http://"+ /*pubIp*/"localhost" + ":" + SessionIdentity.Port +"/");
             config.Routes.MapHttpRoute(name: "API", 
                 routeTemplate: "{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional });
